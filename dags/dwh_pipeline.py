@@ -274,7 +274,7 @@ create_d_city_demo = BigQueryOperator(
 # ------------------------------------------------------------------------------
 # 6. Define task dependencies
 # ------------------------------------------------------------------------------
-start_pipeline >> [load_airports, load_us_cities_demo, load_weather, load_immigration_data] >> finish_pipeline
+start_pipeline >> [load_airports, load_us_cities_demo, load_weather, load_immigration_data] 
 
 load_us_cities_demo >> check_us_cities_demo
 load_airports >> check_airports
