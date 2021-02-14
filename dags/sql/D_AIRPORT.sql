@@ -1,12 +1,13 @@
 CREATE OR REPLACE TABLE `{{ params.dwh_dataset }}.D_AIRPORT` AS
 SELECT DISTINCT
-  substr(iso_region, 4,2) STATE_ID,
-  name AIRPORT_NAME,
-  iata_code IATA_CODE,
-  local_code LOCAL_CODE,
-  COORDINATES,
-  ELEVATION_FT
+        SUBSTR(iso_region, 4,2) AS STATE_ID,
+        name AS AIRPORT_NAME,
+        iata_code AS IATA_CODE,
+        local_code AS LOCAL_CODE,
+        coordinates AS COORDINATES,
+        elevation AS ELEVATION_FT
 FROM
-  `{{ params.project_id }}.{{ params.staging_dataset }}.airport_codes`
-where iso_country = 'US'
-and type != 'closed'
+        `{{ params.project_id }}.{{ params.staging_dataset }}.airport_codes`
+WHERE 
+        iso_country = 'US'
+  AND   type != 'closed'

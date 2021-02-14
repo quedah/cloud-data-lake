@@ -1,51 +1,52 @@
-CREATE OR REPLACE TABLE
-  `{{ params.dwh_dataset }}.D_CITY_DEMO` AS
+CREATE OR REPLACE TABLE `{{ params.dwh_dataset }}.D_CITY_DEMO` AS
 SELECT DISTINCT
-  CITY CITY_NAME,
-  STATE STATE_NAME,
-  STATE_CODE STATE_ID,
-  MEDIAN_AGE,
-  MALE_POPULATION,
-  FEMALE_POPULATION,
-  TOTAL_POPULATION,
-  NUMBER_OF_VETERANS,
-  FOREIGN_BORN,
-  AVERAGE_HOUSEHOLD_SIZE,
-  AVG(
-  IF
-    (RACE = 'White',
-      COUNT,
-      NULL)) WHITE_POPULATION,
-  AVG(
-  IF
-    (RACE = 'Black or African-American',
-      COUNT,
-      NULL)) BLACK_POPULATION,
-  AVG(
-  IF
-    (RACE = 'Asian',
-      COUNT,
-      NULL)) ASIAN_POPULATION,
-  AVG(
-  IF
-    (RACE = 'Hispanic or Latino',
-      COUNT,
-      NULL)) LATINO_POPULATION,
-  AVG(
-  IF
-    (RACE = 'American Indian and Alaska Native',
-      COUNT,
-      NULL)) NATIVE_POPULATION
+        city AS CITY_NAME,
+        state AS STATE_NAME,
+        state_code AS STATE_ID,
+        median_age AS MEDIAN_AGE,
+        male_population AS MALE_POPULATION,
+        female_population AS FEMALE_POPULATION,
+        total_population AS TOTAL_POPULATION,
+        nr_veterans AS NUMBER_OF_VETERANS,
+        foreign_born AS FOREIGN_BORN,
+        avg_household_size AS AVERAGE_HOUSEHOLD_SIZE,
+        AVG(
+        IF
+        (RACE = 'White',
+          COUNT,
+          NULL)) AS WHITE_POPULATION,
+        AVG(
+        IF
+        (RACE = 'Black or African-American',
+          COUNT,
+          NULL)) AS BLACK_POPULATION,
+        AVG(
+        IF
+        (RACE = 'Asian',
+          COUNT,
+          NULL)) AS ASIAN_POPULATION,
+        AVG(
+        IF
+        (RACE = 'Hispanic or Latino',
+          COUNT,
+          NULL)) AS LATINO_POPULATION,
+        AVG(
+        IF
+        (RACE = 'American Indian and Alaska Native',
+          COUNT,
+          NULL)) AS NATIVE_POPULATION
+
 FROM
-  `{{ params.project_id }}.{{ params.staging_dataset }}.us_cities_demo`
+        `{{ params.project_id }}.{{ params.staging_dataset }}.us_cities_demo`
+
 GROUP BY
-  1,
-  2,
-  3,
-  4,
-  5,
-  6,
-  7,
-  8,
-  9,
-  10
+        CITY_NAME,
+        STATE_NAME,
+        STATE_ID,
+        MEDIAN_AGE,
+        MALE_POPULATION,
+        FEMALE_POPULATION,
+        TOTAL_POPULATION,
+        NUMBER_OF_VETERANS,
+        FOREIGN_BORN,
+        AVERAGE_HOUSEHOLD_SIZE
